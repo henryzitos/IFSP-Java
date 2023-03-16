@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class TicTacToe {
 
+    static int count = 0;
     private static char[][] board = new char[3][3];
 
     private static char currentPlayer = 'X';
@@ -39,15 +40,21 @@ public class TicTacToe {
     }
 
     public static boolean isGameOver() {
+        count++;
         if (checkRows() || checkColumns() || checkDiagonals()) {
             printBoard();
             switchPlayer();
             System.out.println(currentPlayer + "'s wins!");
             return (true);
-        } else {
-            return (false);
+        } else if(count >= 10){
+            System.out.println("Draw.");
+            return (true);
+        }
+        else {
+            return false;
         }
     }
+
 
     private static boolean checkRows() {
         for (int i = 0; i < 3; i++) {
@@ -77,22 +84,27 @@ public class TicTacToe {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        initBoard();
-        System.out.println("Tic Tac Toe Game");
-        while (!isGameOver()) {
-            printBoard();
-            System.out.println(currentPlayer + "'s turn");
-            System.out.print("Enter row number (1-3): ");
-            int row = scanner.nextInt() - 1;
-            System.out.print("Enter column number (1-3): ");
-            int col = scanner.nextInt() - 1;
-            if (row < 0 || row > 2 || col < 0 || col > 2 || board[row][col] != '-') {
-                System.out.println("Invalid move. Try again.");
-                continue;
-            } else {
-                placeMark(row, col);
-                switchPlayer();
+        char answer = 'S';
+        while (answer == 'S' || answer == 's') {
+            initBoard();
+            System.out.println("Tic Tac Toe Game");
+            while (!isGameOver()) {
+                printBoard();
+                System.out.println(currentPlayer + "'s turn");
+                System.out.print("Enter row number (1-3): ");
+                int row = scanner.nextInt() - 1;
+                System.out.print("Enter column number (1-3): ");
+                int col = scanner.nextInt() - 1;
+                if (row < 0 || row > 2 || col < 0 || col > 2 || board[row][col] != '-') {
+                    System.out.println("Invalid move. Try again.");
+                    continue;
+                } else {
+                    placeMark(row, col);
+                    switchPlayer();
+                }
             }
+            System.out.println("Para continuar, digite 'S', caso contrário, digite 'N': ");
+            answer = scanner.next().charAt(0);
         }
     }
 }
