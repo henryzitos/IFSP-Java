@@ -1,4 +1,5 @@
 import java.util.Scanner;
+//@henryzitos_
 
 public class Revisao {
     public static Scanner scan = new Scanner(System.in);
@@ -11,8 +12,24 @@ public class Revisao {
         System.out.println();
     }
 
-    public static void matrizValores(double[][] contas, double[] numeros) {
+    public static void matrizValores(double[][] contas) {
 
+        for (int i = 1; i < 4; i++) {
+            for (int j = 1; j < 4; j++) {
+                if (i==j){
+                    contas[i][j] = contas[i-i][j] * contas[i][j-j];
+                } else {
+                    contas[i][j] = contas[i][j-j] - contas[i-i][j];
+                }
+            }
+        }
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(contas[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 
     public static void escolheNomes(String[] nomes) {
@@ -46,12 +63,16 @@ public class Revisao {
         mostraNomes(nomes);
         escolheNomes(nomes);
 
-        double[] numeros = new double[3];
-        for (int i = 0; i < 3; i++) {
-            System.out.println("Digite um número DOUBLE: ");
-            numeros[i] = scan.nextDouble();
-        }
+        System.out.println("Digite um número DOUBLE: ");
+        contas[0][1] = scan.nextDouble();
+        contas[1][0] = contas[0][1];
+        System.out.println("Digite um número DOUBLE: ");
+        contas[0][2] = scan.nextDouble();
+        contas[2][0] = contas[0][2];
+        System.out.println("Digite um número DOUBLE: ");
+        contas[0][3] = scan.nextDouble();
+        contas[3][0] = contas[0][3];
 
-        matrizValores(contas, numeros);
+        matrizValores(contas);
     }
 }
