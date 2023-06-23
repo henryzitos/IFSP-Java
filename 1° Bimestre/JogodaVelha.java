@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class TicTacToe {
+public class JogodaVelha {
 
     static int count = 0;
     private static char[][] board = new char[3][3];
