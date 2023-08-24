@@ -1,13 +1,18 @@
-import entity.Endereco;
-import entity.Pessoa;
+import entity.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import util.HibernateUtil;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        gerenciarPedido();
+    }
+
+    public static void gerenciarPessoa(){
         Pessoa p1 = new Pessoa("Henry", "Zitos", "henriqui@gmail.com", new Endereco("Avenida Guapira", "TucuCity"));
         Pessoa p2 = new Pessoa("Isabela", "Crestiane", "garotamulher@gmail.com", new Endereco("Casa da Vovó", "Lauzane"));
         Pessoa p3 = new Pessoa("Feehzinho", "Wit","fefaswit@gmail", new Endereco("Avenida Itaquera", "Arturalville"));
@@ -31,4 +36,23 @@ public class Main {
         /*List<Endereco> enderecos = session.createQuery("from Endereco", Endereco.class).list();
         enderecos.forEach(e -> System.out.println(e));*/
     }
+
+    public static void gerenciarPedido(){
+        Pessoa p1 = new Pessoa("Henry", "Zitos", "henry@gmail.com", new Endereco("Minha casa", "São Paulo"));
+        Produto pr1 = new Produto("Blusar", 25.5F);
+        Produto pr2 = new Produto("Casacor", 120.0F);
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Pedido pedido = new Pedido(p1, Arrays.asList(pr1, pr2),);
+        Transaction transaction = session.beginTransaction();
+        session.persist(pedido);
+        transaction.commit();
+        List<Pedido> pedidos = session.createQuery("from Pedido", Pedido.class).list();
+
+        pedidos.forEach(p -> System.out.println(p));
+
+
+    }
+
+
 }

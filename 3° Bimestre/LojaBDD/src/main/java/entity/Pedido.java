@@ -12,12 +12,16 @@ public class Pedido {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "NomeCliente")
     private Pessoa cliente;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "PedidoProduto", joinColumns = @JoinColumn(name = "idPedido"), inverseJoinColumns = @JoinColumn(name = "idProduto"))
+    private List<Produto> listaProdutos;
     @Column
-    private List<Produto> listaProdutos = new ArrayList<>();
+    private double precoTotal;
 
-    public Pedido(Pessoa cliente, List<Produto> listaProdutos) {
+    public Pedido(Pessoa cliente, List<Produto> listaProdutos, double precoTotal) {
         this.cliente = cliente;
         this.listaProdutos = listaProdutos;
+        this.precoTotal = precoTotal;
     }
 
     public Pessoa getCliente() {
@@ -34,5 +38,10 @@ public class Pedido {
 
     public void setListaProdutos(List<Produto> listaProdutos) {
         this.listaProdutos = listaProdutos;
+    }
+
+    @Override
+    public String toString() {
+        return "Pedido |" + "id=" + id + ", cliente=" + cliente + ", listaProdutos=" + listaProdutos;
     }
 }
