@@ -66,6 +66,6 @@ public class Pessoa {
 
     @Override
     public String toString() {
-        return " |  Pessoa  | " + "id: " + id + ", nome: " + nome + ", sobrenome: " + sobrenome + ", email: " + email + " |" + endereco + " | ";
+        return "| Pessoa | " + "id: " + id + ", nome: " + nome + ", sobrenome: " + sobrenome + ", email: " + email +  endereco;
     }
 }

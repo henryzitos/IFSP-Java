@@ -43,16 +43,12 @@ public class Main {
         Produto pr2 = new Produto("Casacor", 120.0F);
 
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Pedido pedido = new Pedido(p1, Arrays.asList(pr1, pr2),);
+        Pedido pedido = new Pedido(p1, new ArrayList<>(List.of(pr1, pr2)));
         Transaction transaction = session.beginTransaction();
         session.persist(pedido);
         transaction.commit();
         List<Pedido> pedidos = session.createQuery("from Pedido", Pedido.class).list();
 
         pedidos.forEach(p -> System.out.println(p));
-
-
     }
-
-
 }

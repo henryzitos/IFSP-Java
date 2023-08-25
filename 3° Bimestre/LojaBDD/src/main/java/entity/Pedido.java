@@ -14,14 +14,14 @@ public class Pedido {
     private Pessoa cliente;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "PedidoProduto", joinColumns = @JoinColumn(name = "idPedido"), inverseJoinColumns = @JoinColumn(name = "idProduto"))
-    private List<Produto> listaProdutos;
+    private static List<Produto> listaProdutos;
     @Column
     private double precoTotal;
 
-    public Pedido(Pessoa cliente, List<Produto> listaProdutos, double precoTotal) {
+    public Pedido(Pessoa cliente, List<Produto> listaProdutos) {
         this.cliente = cliente;
         this.listaProdutos = listaProdutos;
-        this.precoTotal = precoTotal;
+        this.precoTotal = valorTotal();
     }
 
     public Pessoa getCliente() {
@@ -40,8 +40,16 @@ public class Pedido {
         this.listaProdutos = listaProdutos;
     }
 
+    private static float valorTotal(){
+        double valorT = 0;
+        for (Produto produto: listaProdutos) {
+            valorT = valorT + produto.getPreco();
+        }
+        return (float) valorT;
+    }
+
     @Override
     public String toString() {
-        return "Pedido |" + "id=" + id + ", cliente=" + cliente + ", listaProdutos=" + listaProdutos;
+        return "| Pedido | " + "id: " + id + ", cliente: " + cliente + ", Lista de Produtos: " + listaProdutos;
     }
 }

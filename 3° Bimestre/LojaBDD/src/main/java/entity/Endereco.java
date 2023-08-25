@@ -44,6 +44,6 @@ public class Endereco {
 
     @Override
     public String toString() {
-        return " Endereco | " + "id: " + id + ", rua: " + rua + ", cidade: " + cidade;
+        return "| Endereco | " + "id: " + id + ", rua: " + rua + ", cidade: " + cidade;
     }
 }
