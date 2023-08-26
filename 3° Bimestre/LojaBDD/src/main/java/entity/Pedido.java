@@ -48,6 +48,23 @@ public class Pedido {
         return (float) valorT;
     }
 
+    public void addItem(Produto produto) {
+        listaProdutos.add(produto);
+        precoTotal += produto.getPreco();
+    }
+
+    public void removerItem(int id) {
+        for (Produto p : listaProdutos) {
+            if (p.getId() == id) {
+                precoTotal -= p.getPreco();
+                listaProdutos.remove(p);
+                System.out.println("Produto " + p.getId() + " removido do orçamento!");
+                return;
+            }
+        }
+        System.out.println("O item não foi encontrado!");
+    }
+
     @Override
     public String toString() {
         return "| Pedido | " + "id: " + id + ", cliente: " + cliente + ", Lista de Produtos: " + listaProdutos;

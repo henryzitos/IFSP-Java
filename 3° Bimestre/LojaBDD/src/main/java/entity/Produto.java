@@ -14,9 +14,13 @@ public class Produto {
     @Column
     private float preco;
 
+    private static int idBase = 1;
+
     public Produto(String nome, float preco) {
+        this.id = idBase;
         this.nome = nome;
         this.preco = preco;
+        idBase++;
     }
 
     public int getId() {
